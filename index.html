@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dia dos Namorados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(135deg, #eebad4, #f3a5c7); /* Gradiente de fundo */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden; /* Evita overflow da tela */
+            position: relative; /* Para posicionamento dos corações */
+        }
+        .navbar {
+            width: 100%;
+            background-color: rgba(255, 99, 132, 0.7);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            z-index: 2; /* Garante que a navbar esteja no topo */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            margin-left: 20px; /* Espaçamento extra à esquerda */
+            transition: color 0.3s; /* Efeito de transição suave */
+        }
+        .navbar a:hover {
+            color: #ffe6f0; /* Altera a cor ao passar o mouse */
+        }
+        .heart-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            margin-left: 20px; /* Espaçamento extra à esquerda */
+            animation: heartbeat 1s infinite; /* Animação de piscar */
+        }
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%; /* Recuo das laterais esquerda e direita */
+            width: 100%;
+            position: relative; /* Para posicionamento absoluto do botão */
+            z-index: 1; /* Garante que o conteúdo esteja abaixo do botão */
+        }
+        .text-content {
+            max-width: 40%; /* Limita a largura do texto */
+            margin-left: 10%; /* Recuo da lateral esquerda */
+        }
+        .content h1 {
+            font-size: 2em;
+            text-align: left;
+            line-height: 1.5;
+            text-transform: uppercase;
+            letter-spacing: 1px; /* Adiciona espaçamento entre as letras */
+            position: relative;
+        }
+        .content h1::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            bottom: -5px;
+            left: 0;
+            background-color: #e0719b; /* Cor rosa para destaque */
+            z-index: -1;
+            border-radius: 10px; /* Adiciona um leve arredondamento às bordas */
+            opacity: 0.5; /* Reduz a opacidade para suavizar o efeito */
+        }
+        .quote {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: white;
+        }
+        .highlight {
+            color: white; /* Mantém a cor branca para palavras destacadas */
+        }
+        .content h1 .highlight {
+            color: #e0719b; /* Cor rosa para palavras destacadas dentro de spans */
+        }
+        .image-container {
+            max-width: 200px;
+            margin-right: 10%; /* Recuo da lateral direita */
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border: 5px solid #e0719b; /* Adiciona borda à imagem */
+            border-radius: 10px; /* Adiciona arredondamento à borda */
+        }
+        .music-button {
+            background-color: rgba(255, 255, 255, 0.7); /* Cor com opacidade */
+            color: #e0719b;
+            width: 80px;
+            height: 80px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3; /* Garante que o botão esteja no topo */
+        }
+        .music-button:hover {
+            background-color: rgba(255, 255, 255, 0.9); /* Cor ao passar o mouse */
+        }
+        .floating-heart {
+            position: absolute;
+            animation: float 10s infinite;
+            font-size: 2em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .heart1 {
+            top: 30%;
+            left: 20%;
+        }
+        .heart2 {
+            top: 50%;
+            left: 70%;
+            animation-duration: 8s;
+        }
+        .heart3 {
+            top: 70%;
+            left: 40%;
+            animation-duration: 12s;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 2; /* Garante que o footer esteja acima dos corações */
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="heart-icon">&#10084;</span> <!-- Ícone de coração -->
+        <a href="index.html">Ashla e Marcelo</a>
+        <a href="historia.html">História</a>
+        <a href="momentos.html">Momentos</a>
+    </div>
+    <div class="content">
+        <div class="text-content">
+            <h1>
+                EM CADA <span class="highlight">SORRISO</span> <br>SEU, VEJO O 
+                <span class="highlight">BRILHO</span><br>
+                DO <span class="highlight">NOSSO FUTURO</span> <br>JUNTOS.
+                É EM <span class="highlight">VOCÊ</span><br> <span class="highlight">QUE</span> ENCONTRO 
+                <br>A <span class="highlight">CERTEZA</span> <br>
+                DO <span class="highlight">MEU AMOR.</span>
+            </h1>
+            <p class="quote">"Amar não é olhar <br>um para o outro, <br>é olhar juntos na <br>mesma direção." 
+                - Antoine de Saint-Exupéry <br><br>Eu te amo</p>
+        </div>
+        <div class="image-container">
+            <img src="us.png" alt="Figurinha Romântica">
+        </div>
+    </div>
+    <!-- Botão para Iniciar a Música -->
+    <button class="music-button" id="music-button" onclick="toggleMusic()">&#9658;</button> <!-- &#9658; é o ícone de play -->
+
+    <!-- Música de Fundo -->
+    <audio id="background-music" loop>
+        <source src="Cinnamon Girl.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Corações Flutuantes -->
+    <div class="floating-heart heart1">&#10084;</div>
+    <div class="floating-heart heart2">&#10084;</div>
+    <div class="floating-heart heart3">&#10084;</div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Desenvolvido por Princeso
+    </div>
+
+    <script>
+        var isPlaying = false;
+        function toggleMusic() {
+            var music = document.getElementById('background-music');
+            var button = document.getElementById('music-button');
+            if (isPlaying) {
+                music.pause();
+                button.innerHTML = '&#9658;'; // Ícone de play
+            } else {
+                music.play();
+                button.innerHTML = '&#10074;&#10074;'; // Ícone de pause
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>

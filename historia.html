@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(135deg, #eebad4, #f3a5c7);
+            color: #ebe4e4;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .navbar {
+            width: 100%;
+            background-color: rgba(255, 99, 132, 0.7);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            z-index: 2;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #ffe6f0;
+        }
+        .heart-icon {
+            color: white;
+            font-size: 1.2em;
+            margin-right: 10px;
+            margin-left: 20px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .container {
+            padding: 20px;
+            margin-top: 80px;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ff99cc;
+            border-radius: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff99cc;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff6699;
+        }
+        .posted-story {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            color: #333;
+            white-space: pre-wrap;
+            position: relative;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="heart-icon">&#10084;</span> <!-- Ícone de coração -->
+        <a href="index.html">Ashla e Marcelo</a>
+        <a href="historia.html">História</a>
+        <a href="momentos.html">Momentos</a>
+    </div>
+    <div class="container">
+        <h1>Escreva nossa história</h1>
+        <textarea id="story" placeholder="Digite aqui a nossa história..."></textarea>
+        <button onclick="saveStory()">Postar</button>
+        <div id="posted-stories"></div>
+    </div>
+    <div class="footer">
+        Desenvolvido por Princeso
+    </div>
+    <script>
+        // Função para salvar a história
+        function saveStory() {
+            var story = document.getElementById('story').value;
+            if (story.trim() === "") {
+                alert("Por favor, digite uma história.");
+                return;
+            }
+            var stories = JSON.parse(localStorage.getItem('stories')) || [];
+            stories.push(story);
+            localStorage.setItem('stories', JSON.stringify(stories));
+            displayStories();
+            document.getElementById('story').value = "";
+        }
+
+        // Função para exibir as histórias salvas
+        function displayStories() {
+            var stories = JSON.parse(localStorage.getItem('stories')) || [];
+            var postedStoriesDiv = document.getElementById('posted-stories');
+            postedStoriesDiv.innerHTML = "";
+            stories.forEach((story, index) => {
+                var storyDiv = document.createElement('div');
+                storyDiv.className = 'posted-story';
+                storyDiv.innerText = story;
+                var deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-button';
+                deleteButton.innerText = 'Deletar';
+                deleteButton.onclick = function() {
+                    deleteStory(index);
+                };
+                storyDiv.appendChild(deleteButton);
+                postedStoriesDiv.appendChild(storyDiv);
+            });
+        }
+
+        // Função para deletar uma história
+        function deleteStory(index) {
+            var stories = JSON.parse(localStorage.getItem('stories')) || [];
+            stories.splice(index, 1);
+            localStorage.setItem('stories', JSON.stringify(stories));
+            displayStories();
+        }
+
+        // Carregar histórias ao carregar a página
+        window.onload = function() {
+            displayStories();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(135deg, #eebad4, #f3a5c7);
+            color: #eee8e8;
+        }
+        .navbar {
+            width: 100%;
+            background-color: rgba(255, 99, 132, 0.7);
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            z-index: 2;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #ffe6f0;
+        }
+        .heart-icon {
+            font-size: 1.2em;
+            margin-right: 10px;
+            margin-left: 20px;
+            color: white;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .container {
+            padding: 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .photos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .photo-item {
+            position: relative;
+            margin: 10px;
+        }
+        .photo-item img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff99cc;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+        }
+        label:hover {
+            background-color: #ff6699;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 2;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <span class="heart-icon">&#10084;</span> <!-- Ícone de coração branco -->
+        <a href="index.html">Ashla e Marcelo</a>
+        <a href="historia.html">História</a>
+        <a href="momentos.html">Momentos</a>
+    </div>
+    <div class="container">
+        <h1>Nossos Momentos</h1>
+        <div class="photos" id="photos"></div>
+        <input type="file" id="fileUpload" accept="image/*">
+        <label for="fileUpload">Adicionar Foto</label>
+    </div>
+    <div class="footer">
+        Desenvolvido por Princeso
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const photosContainer = document.getElementById('photos');
+            const fileUpload = document.getElementById('fileUpload');
+
+            // Carrega as fotos do localStorage
+            loadPhotos();
+
+            fileUpload.addEventListener('change', handleFileUpload);
+
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imageUrl = e.target.result;
+                        addPhoto(imageUrl);
+                        savePhoto(imageUrl);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            function addPhoto(url) {
+                const photoItem = document.createElement('div');
+                photoItem.classList.add('photo-item');
+
+                const img = document.createElement('img');
+                img.src = url;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                deleteButton.innerText = 'X';
+                deleteButton.addEventListener('click', () => {
+                    photoItem.remove();
+                    deletePhoto(url);
+                });
+
+                photoItem.appendChild(img);
+                photoItem.appendChild(deleteButton);
+                photosContainer.appendChild(photoItem);
+            }
+
+            function savePhoto(url) {
+                let photos = JSON.parse(localStorage.getItem('photos')) || [];
+                photos.push(url);
+                localStorage.setItem('photos', JSON.stringify(photos));
+            }
+
+            function loadPhotos() {
+                let photos = JSON.parse(localStorage.getItem('photos')) || [];
+                photos.forEach(url => addPhoto(url));
+            }
+
+            function deletePhoto(url) {
+                let photos = JSON.parse(localStorage.getItem('photos')) || [];
+                photos = photos.filter(photo => photo !== url);
+                localStorage.setItem('photos', JSON.stringify(photos));
+            }
+        });
+    </script>
+</body>
+</html>
