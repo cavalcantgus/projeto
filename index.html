@@ -7,19 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Rubik', sans-serif;
-            background: linear-gradient(135deg, #eebad4, #f3a5c7); /* Gradiente de fundo */
+            background: linear-gradient(135deg, #eebad4, #f3a5c7);
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: #fff;
-            overflow: hidden; /* Evita overflow da tela */
-            position: relative; /* Para posicionamento dos corações */
+            overflow: hidden;
+            position: relative;
         }
         .navbar {
             width: 100%;
@@ -30,23 +31,23 @@
             left: 0;
             display: flex;
             align-items: center;
-            z-index: 2; /* Garante que a navbar esteja no topo */
+            z-index: 2;
         }
         .navbar a {
             color: white;
             text-decoration: none;
             padding: 14px 20px;
-            margin-left: 20px; /* Espaçamento extra à esquerda */
-            transition: color 0.3s; /* Efeito de transição suave */
+            margin-left: 20px;
+            transition: color 0.3s;
         }
         .navbar a:hover {
-            color: #ffe6f0; /* Altera a cor ao passar o mouse */
+            color: #ffe6f0;
         }
         .heart-icon {
             font-size: 1.2em;
             margin-right: 10px;
-            margin-left: 20px; /* Espaçamento extra à esquerda */
-            animation: heartbeat 1s infinite; /* Animação de piscar */
+            margin-left: 20px;
+            animation: heartbeat 1s infinite;
         }
         @keyframes heartbeat {
             0% {
@@ -64,21 +65,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10%; /* Recuo das laterais esquerda e direita */
+            padding: 0 10%;
             width: 100%;
-            position: relative; /* Para posicionamento absoluto do botão */
-            z-index: 1; /* Garante que o conteúdo esteja abaixo do botão */
+            position: relative;
+            z-index: 1;
         }
         .text-content {
-            max-width: 40%; /* Limita a largura do texto */
-            margin-left: 10%; /* Recuo da lateral esquerda */
+            max-width: 40%;
+            margin-left: 10%;
         }
         .content h1 {
             font-size: 2em;
             text-align: left;
             line-height: 1.5;
             text-transform: uppercase;
-            letter-spacing: 1px; /* Adiciona espaçamento entre as letras */
+            letter-spacing: 1px;
             position: relative;
         }
         .content h1::before {
@@ -88,34 +89,35 @@
             height: 10px;
             bottom: -5px;
             left: 0;
-            background-color: #e0719b; /* Cor rosa para destaque */
+            background-color: #e0719b;
             z-index: -1;
-            border-radius: 10px; /* Adiciona um leve arredondamento às bordas */
-            opacity: 0.5; /* Reduz a opacidade para suavizar o efeito */
+            border-radius: 10px;
+            opacity: 0.5;
         }
         .quote {
             margin-top: 20px;
             font-size: 1.2em;
             color: white;
+            font-family: 'LXGW WenKai Mono TC', monospace;
         }
         .highlight {
-            color: white; /* Mantém a cor branca para palavras destacadas */
+            color: white;
         }
         .content h1 .highlight {
-            color: #e0719b; /* Cor rosa para palavras destacadas dentro de spans */
+            color: #e0719b;
         }
         .image-container {
             max-width: 200px;
-            margin-right: 10%; /* Recuo da lateral direita */
+            margin-right: 10%;
         }
         .image-container img {
             width: 100%;
             height: auto;
-            border: 5px solid #e0719b; /* Adiciona borda à imagem */
-            border-radius: 10px; /* Adiciona arredondamento à borda */
+            border: 5px solid #e0719b;
+            border-radius: 10px;
         }
         .music-button {
-            background-color: rgba(255, 255, 255, 0.7); /* Cor com opacidade */
+            background-color: rgba(255, 255, 255, 0.7);
             color: #e0719b;
             width: 80px;
             height: 80px;
@@ -131,10 +133,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 3; /* Garante que o botão esteja no topo */
+            z-index: 3;
         }
         .music-button:hover {
-            background-color: rgba(255, 255, 255, 0.9); /* Cor ao passar o mouse */
+            background-color: rgba(255, 255, 255, 0.9);
         }
         .floating-heart {
             position: absolute;
@@ -174,12 +176,12 @@
             width: 100%;
             text-align: center;
             padding: 10px 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             position: fixed;
             bottom: 0;
             left: 0;
-            z-index: 2; /* Garante que o footer esteja acima dos corações */
+            z-index: 2;
             font-size: 0.9em;
         }
     </style>
@@ -212,8 +214,8 @@
     <button class="music-button" id="music-button" onclick="toggleMusic()">&#9658;</button> <!-- &#9658; é o ícone de play -->
 
     <!-- Música de Fundo -->
-    <audio id="background-music" loop>
-        <source src="Cinnamon Girl.mp3" type="audio/mpeg">
+    <audio id="background-music" preload="auto" loop>
+        <source src="New West - Those Eyes (Home Session).webm" type="audio/webm">
         Your browser does not support the audio element.
     </audio>
 

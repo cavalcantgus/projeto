@@ -13,6 +13,8 @@
             font-family: 'Rubik', sans-serif;
             background: linear-gradient(135deg, #eebad4, #f3a5c7);
             color: #eee8e8;
+            position: relative;
+            min-height: 100vh;
         }
         .navbar {
             width: 100%;
@@ -57,6 +59,7 @@
             padding: 20px;
             margin-top: 60px;
             text-align: center;
+            padding-bottom: 80px; /* Ajuste para evitar que o footer cubra o botão */
         }
         .photos {
             display: flex;
@@ -107,7 +110,7 @@
             padding: 10px 0;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
-            position: fixed;
+            position: absolute;
             bottom: 0;
             left: 0;
             z-index: 2;
